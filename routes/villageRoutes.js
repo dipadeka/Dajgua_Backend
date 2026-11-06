@@ -6,8 +6,7 @@ const Village = require("../models/Village"); // adjust path as needed
  
 const upload = multer({ storage: multer.memoryStorage() });
  
-// --------------- Column name aliases ---------------
-// Add any alternate spellings found in your Excel headers here
+
 const COLUMN_MAP = {
   // District
   districtName: ["district name", "district", "dist name", "districtname", "dist"],
