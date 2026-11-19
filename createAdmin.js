@@ -5,14 +5,17 @@ require('dotenv').config();
 
 mongoose.connect(process.env.MONGO_URI).then(async () => {
   const User = require('./models/User');
-  const hash = await bcrypt.hash('admin123', 10);
-  await User.create({ 
-    email: 'admin@dajgua.gov.in', 
-    password: hash 
-  });
+  await User.deleteMany({ email: 'admin@dajgua.gov.in' });
+
+  const USE_PLAIN_PASSWORD = false; // set true ONLY if User.js hashes in pre('save')
+  const password = USE_PLAIN_PASSWORD
+    ? 'admin123'
+    : await bcrypt.hash('admin123', 10);
+
+  await User.create({ email: 'admin@dajgua.gov.in', password });
   console.log('✅ Admin user created!');
   process.exit();
 }).catch(err => {
   console.error('Error:', err.message);
-  process.exit();
+  process.exit(1);
 });
