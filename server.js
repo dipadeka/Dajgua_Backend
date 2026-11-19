@@ -7,10 +7,13 @@ require('dotenv').config();
 const app = express();
 app.use(cors({
   origin: [
-    'https://grateful-lightblue-beaver-54.hostingersite.com',
+    'https://personal-moccasin-ibis-44.hostingersite.com',
     'http://localhost:5173'
-  ]
-}));app.use(express.json());
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use(express.json());
 
 const authRoutes = require('./routes/auth');
 const villageRoutes = require('./routes/villageRoutes');
